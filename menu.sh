@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./scripts/install.sh
+source ./scripts/uninstall.sh
 ASEPRITE_DIR="/opt/aseprite"
 
 #------------------------
@@ -64,7 +65,7 @@ get_active_version(){
     if [ -L "$ASEPRITE_DIR/active" ];then
         basename "$(readlink -f "$ASEPRITE_DIR/active")"
     else
-        echo "0.0.0"
+        echo "none"
     fi
 }
 
@@ -119,6 +120,7 @@ check_update(){
 }
 
 list_all_versions(){
+    echo ""
     echo "===== Installed Versions ====="
     echo ""
 
@@ -166,7 +168,8 @@ list_all_versions(){
 }
 
 switch_version(){
-    echo "===== Aseprite Compiler ====="
+    echo ""
+    echo "===== Switch Version ====="
     echo ""
 
     if [ ! -d "$ASEPRITE_DIR" ];then
@@ -223,14 +226,16 @@ EOF
 # -----------------------
 
 show_menu(){
-    echo "===== Aseprite Compiler ====="
+    echo ""
+    echo "===== Aseprite Manager ====="
     echo ""
     check_update
     echo ""
     echo "1) Install Aseprite"
-    echo "2) Switch Active Version"
-    echo "3) List All Versions (detailed)"
-    echo "4) Quit"
+    echo "2) Uninstall Aseprite"
+    echo "3) Switch Active Version"
+    echo "4) List All Versions (detailed)"
+    echo "5) Quit"
     echo ""
 }
 
@@ -239,9 +244,10 @@ while true; do
     read -rp "Choose an option: " choice
     case "$choice" in
         1) install_version ;;
-        2) switch_version ;;
-        3) list_all_versions ;;
-        4) exit 0 ;;
+        2) uninstall ;;
+        3) switch_version ;;
+        4) list_all_versions ;;
+        5) exit 0 ;;
         *) echo "Invalid option" ;;
     esac
     echo ""

@@ -274,7 +274,10 @@ install_version(){
     local ASEPRITE_SRC_DIR="/tmp/aseprite-build-$$"
     local SKIA_DIR="$ASEPRITE_SRC_DIR/skia"
 
+    echo ""
     echo "===== Install Aseprite ====="
+    echo ""
+
     check_dependencies
     mkdir -p "$ASEPRITE_SRC_DIR" "$SKIA_DIR"
 
