@@ -1,0 +1,40 @@
+AsepriteManager Non-Commercial License
+
+Copyright (c) 2026 frost_rvl
+
+Permission is granted to use, copy, and modify this software
+for personal and educational purposes only.
+
+This script is specifically intended to help individuals build
+Aseprite from its publicly available source code for non-commercial use.
+
+Commercial use of this script is strictly prohibited, except for
+users who hold a valid commercial license for Aseprite from the
+official developers at https://aseprite.org.
+
+You may not use this script to distribute, sell, or share compiled
+Aseprite binaries, unless you hold a valid commercial license from Aseprite.
+
+You may not use this script to automate any public distribution of
+Aseprite binaries, including through continuous integration tools
+(e.g., GitHub Actions, CI/CD pipelines, bots), on any third-party
+website or platform.
+
+This script must not be used as part of any commercial or
+unauthorized redistribution pipeline.
+
+You must retain this license and the copyright notice in any
+copies, forks, or derivative works of this script, whether
+modified or unmodified.
+
+This script is not affiliated with or endorsed by Aseprite or its
+developers.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING
+FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
