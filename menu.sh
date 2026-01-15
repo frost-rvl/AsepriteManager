@@ -140,7 +140,7 @@ list_all_versions(){
     echo ""
     while IFS= read -r version;do
         local version_type="stable"
-        if ! is_stable_version "$versoin"; then
+        if ! is_stable_version "$version"; then
             version_type="pre-release"
         fi
 
