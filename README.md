@@ -62,13 +62,6 @@ This script has been tested on:
 
 Other Debian-based distributions may work but are not guaranteed.
 
-## License
-
-This script is licensed under a [AsepriteManager Non-Commercial License](LICENSE).  
-It applies **only to this project**, not to Aseprite software itself.
-
-This project is **not affiliated with or endorsed by Aseprite**.
-
 ## Contributing
 
 Contributions are welcome! However, please note:
@@ -80,3 +73,10 @@ Contributions are welcome! However, please note:
 - Always keep the license and copyright notice intact in any submitted code.
 
 By contributing, you agree that your contributions will follow the same license as this project.
+
+## License
+
+This script is licensed under a [AsepriteManager Non-Commercial License](LICENSE).  
+It applies **only to this project**, not to Aseprite software itself.
+
+This project is **not affiliated with or endorsed by Aseprite**.
