@@ -61,8 +61,8 @@ is_stable_version(){
 }
 
 get_active_version(){
-    if [ -L "$ASEPRITE_DIR/latest" ];then
-        basename "$(readlink -f "$ASEPRITE_DIR/latest")"
+    if [ -L "$ASEPRITE_DIR/active" ];then
+        basename "$(readlink -f "$ASEPRITE_DIR/active")"
     else
         echo "0.0.0"
     fi
@@ -128,7 +128,7 @@ list_all_versions(){
     fi
 
     local active=$(get_active_version)
-    local versions=$(ls -1 "$ASEPRITE_DIR" | grep -E '^v?[0-9]+\.[0-9]+' | grep -v '^latest$' || true)
+    local versions=$(ls -1 "$ASEPRITE_DIR" | grep -E '^v?[0-9]+\.[0-9]+' | grep -v '^active$' || true)
     if [ -z "$versions" ];then
         echo "No versions installed."
         return
@@ -162,7 +162,7 @@ list_all_versions(){
         fi
         echo ""
     done <<< "$versions"
-    echo "Active version symlink: $ASEPRITE_DIR/latest -> $active"
+    echo "Active version symlink: $ASEPRITE_DIR/active -> $active"
 }
 
 switch_version(){
@@ -174,7 +174,7 @@ switch_version(){
         return
     fi
 
-    local versions=$(ls -1 "$ASEPRITE_DIR" | grep -E '^v?[0-9]+\.[0-9]+' | grep -v '^latest$' || true)
+    local versions=$(ls -1 "$ASEPRITE_DIR" | grep -E '^v?[0-9]+\.[0-9]+' | grep -v '^active$' || true)
     if [ -z "$versions" ];then
       echo "No versions installed."
       return
@@ -198,15 +198,15 @@ switch_version(){
         fi
 
         echo "Switching to version $version..."
-        sudo ln -sfn "$ASEPRITE_DIR/$version" "$ASEPRITE_DIR/latest"
-        sudo ln -sfn "$ASEPRITE_DIR/latest/aseprite" /usr/local/bin/aseprite
+        sudo ln -sfn "$ASEPRITE_DIR/$version" "$ASEPRITE_DIR/active"
+        sudo ln -sfn "$ASEPRITE_DIR/active/aseprite" /usr/local/bin/aseprite
         sudo tee /usr/share/applications/aseprite.desktop > /dev/null << EOF
 [Desktop Entry]
 Name=Aseprite
 Version=$version
 Comment=Animated sprite editor & pixel art tool
-Exec=$ASEPRITE_DIR/latest/bin/aseprite %F
-Icon=$ASEPRITE_DIR/latest/data/icons/ase64.png
+Exec=$ASEPRITE_DIR/active/bin/aseprite %F
+Icon=$ASEPRITE_DIR/active/share/aseprite/data/icons/ase64.png
 Terminal=false
 Type=Application
 Categories=Graphics;2DGraphics;RasterGraphics;

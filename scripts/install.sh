@@ -182,7 +182,7 @@ install_aseprite(){
         echo "Ninja install failed!" >&2
         return 1
     }
-    sudo ln -sfn "$install_dir" "$ASEPRITE_DIR/latest"
+    sudo ln -sfn "$install_dir" "$ASEPRITE_DIR/active"
 
     setup_system_integration "$version"
     echo "Installed version $version and set as active."
@@ -193,14 +193,14 @@ setup_system_integration(){
 
     echo "Setting up system integration..." >&2
 
-    sudo ln -sf "$ASEPRITE_DIR/latest/bin/aseprite" /usr/local/bin/aseprite
+    sudo ln -sf "$ASEPRITE_DIR/active/bin/aseprite" /usr/local/bin/aseprite
     sudo tee /usr/share/applications/aseprite.desktop > /dev/null << EOF
 [Desktop Entry]
 Name=Aseprite
 Version=$version
 Comment=Animated sprite editor & pixel art tool
-Exec=$ASEPRITE_DIR/latest/aseprite %F
-Icon=$ASEPRITE_DIR/latest/data/icons/ase64.png
+Exec=$ASEPRITE_DIR/active/bin/aseprite %F
+Icon=$ASEPRITE_DIR/active/share/aseprite/data/icons/ase64.png
 Terminal=false
 Type=Application
 Categories=Graphics;2DGraphics;RasterGraphics;
