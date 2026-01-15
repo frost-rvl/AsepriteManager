@@ -5,8 +5,6 @@ AsepriteManager is a Bash script that helps you download, compile, install, and 
 > **Note:** This script is intended for **Debian-based distros only**.
 > Feel free to adapt it for other distributions if needed.
 
----
-
 ## About Aseprite Licensing
 
 Aseprite is **not free software** in its distributed binary form.  
