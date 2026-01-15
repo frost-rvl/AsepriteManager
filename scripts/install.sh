@@ -64,13 +64,45 @@ choose_version(){
     done
 }
 
+detect_architecture(){
+    local arch=$(uname -m)
+    case "$arch" in
+        x86_64|amd64)
+        echo "x64";;
+        i386|i686)
+        echo "x86";;
+        *)
+        echo "unsupported";;
+    esac
+}
+
 download_skia() {
     local skia_dir="$1"
+    local arch=$(detect_architecture)
+
+    echo "Detected architecture: $arch" >&2
+    local skia_url
+    case "$arch" in
+        x64)
+            skia_url="https://github.com/aseprite/skia/releases/latest/download/Skia-Linux-Release-x64.zip"
+            ;;
+        x86)
+            skia_url="https://github.com/aseprite/skia/releases/latest/download/Skia-Linux-Release-x86.zip"
+            ;;
+        *)
+            echo "ERROR: Unsupported architecture: $(uname -m)" >&2
+            echo "This script only supports x64 (x86_64) and x86 (i386/i686) architectures." >&2
+            echo "For ARM architectures, you'll need to build Skia manually." >&2
+            return 1
+            ;;
+    esac
+
     echo "Downloading Skia..." >&2
     mkdir -p "$skia_dir"
 
-    if ! curl -f -L --progress-bar -o "$skia_dir/skia.zip" "https://github.com/aseprite/skia/releases/latest/download/Skia-Linux-Release-x64.zip"; then
-        echo "Failed to download Skia" >&2
+    if ! curl -f -L --progress-bar -o "$skia_dir/skia.zip" "$skia_url"; then
+        echo "Failed to download Skia for $arch" >&2
+        echo "Tried URL: $skia_url" >&2
         return 1
     fi
 
@@ -140,8 +172,23 @@ build_aseprite(){
     local version="${3#v}"
     local install_dir="$4"
     local build_dir="$src_dir/build"
+    local arch=$(detect_architecture)
 
-    cd "$SRC_DIR" || { echo "Source folder not found"; return 1; }
+    local skia_lib_dir
+    case "$arch" in
+        x64)
+            skia_lib_dir="$skia_dir/out/Release-x64"
+            ;;
+        x86)
+            skia_lib_dir="$skia_dir/out/Release-x86"
+            ;;
+        *)
+            echo "ERROR: Unsupported architecture for build: $(uname -m)" >&2
+            return 1
+            ;;
+    esac
+
+    cd "$src_dir" || { echo "Source folder not found"; return 1; }
     mkdir -p "$build_dir"
     cd "$build_dir" || { echo "Build folder creation failed"; return 1; }
 
@@ -149,7 +196,12 @@ build_aseprite(){
     echo "Your system has $max_jobs CPU cores available." >&2
     read -rp "Enter number of jobs to use (press Enter for $max_jobs): " num_jobs
 
-    if [ -z "$num_jobs" ];then
+    if [ -z "$num_jobs" ] || [ "$num_jobs" -gt "$max_jobs" ] ;then
+        num_jobs=$max_jobs
+    fi
+
+    if ! [[ "$num_jobs" =~ ^[0-9]+$ ]] || [ "$num_jobs" -lt 1 ]; then
+        echo "Invalid number. Using default: $max_jobs" >&2
         num_jobs=$max_jobs
     fi
 
@@ -158,8 +210,8 @@ build_aseprite(){
           -DCMAKE_INSTALL_PREFIX="$install_dir" \
           -DLAF_BACKEND=skia \
           -DSKIA_DIR="$skia_dir" \
-          -DSKIA_LIBRARY_DIR="$skia_dir/out/Release-x64" \
-          -DSKIA_LIBRARY="$skia_dir/out/Release-x64/libskia.a" \
+          -DSKIA_LIBRARY_DIR="$skia_lib_dir" \
+          -DSKIA_LIBRARY="$skia_lib_dir/libskia.a" \
           -G Ninja ..
 
     ninja -j"$num_jobs" aseprite || { return 1 ;}
