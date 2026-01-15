@@ -2,7 +2,7 @@
 
 AsepriteManager is a Bash script that helps you download, compile, install, and manage multiple versions of Aseprite on Linux systems.
 
-> ⚠️ This script is intended for **Debian-based distros only**.
+> **Note:** This script is intended for **Debian-based distros only**.
 > Feel free to adapt it for other distributions if needed.
 
 ---
@@ -21,7 +21,7 @@ This script:
 If you use Aseprite regularly or professionally, 
 please purchase a license from: https://www.aseprite.org
 
-> ⚠️ **Legal Notice**: This script is licensed separately from Aseprite.  
+> **Legal Notice**: This script is licensed separately from Aseprite.  
 > It does **not** grant any rights to the Aseprite software.  
 > Any distribution of compiled Aseprite binaries must comply with Aseprite’s official licensing terms.
 
@@ -62,9 +62,23 @@ This script has been tested on:
 
 - PopOs 24.04
 
+Other Debian-based distributions may work but are not guaranteed.
+
 ## License
 
 This script is licensed under a [AsepriteManager Non-Commercial License](LICENSE).  
 It applies **only to this project**, not to Aseprite software itself.
 
 This project is **not affiliated with or endorsed by Aseprite**.
+
+## Contributing
+
+Contributions are welcome! However, please note:
+
+- This script is intended for **personal and educational use** only.  
+- Any contributions should **respect the non-commercial license** of this project.  
+- You may submit bug reports, feature requests, or pull requests for improvements to the script itself.  
+- Do **not** include or distribute compiled Aseprite binaries in your contributions.  
+- Always keep the license and copyright notice intact in any submitted code.
+
+By contributing, you agree that your contributions will follow the same license as this project.
