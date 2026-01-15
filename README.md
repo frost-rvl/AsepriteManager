@@ -30,6 +30,8 @@ please purchase a license from: https://www.aseprite.org
 - Download and extracts the **Skia** library
 - Install all required dependencies (cmake, g++, ninja, etc.)
 - Supports installing **multiple versions of Aseprite**
+- Supports x86 and x64 architectures
+- Automatically creates a **desktop entry** for easy launching
 - Allows switching between installed versions
 - Uninstall a specific version or all versions
 
